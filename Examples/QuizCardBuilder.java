@@ -70,7 +70,7 @@ public class QuizCardBuilder {
 	}
 
 	public class NextCardListener implements ActionListener {
-		public void actionPermormed(ActionEvent ev) {
+		public void actionPerformed(ActionEvent ev) {
 			QuizCard card = new QuizCard(question.getText(), answer.getText());
 			cardList.add(card);
 			clearCard();
@@ -78,7 +78,7 @@ public class QuizCardBuilder {
 	}
 
 	public class SaveMenuListener implements ActionListener {
-		public void actionPermormed(ActionEvent ev) {
+		public void actionPerformed(ActionEvent ev) {
 			QuizCard card = new QuizCard(question.getText(), answer.getText());
 			cardList.add(card);
 
@@ -89,7 +89,7 @@ public class QuizCardBuilder {
 	}
 
 	public class NewMenuListener implements ActionListener {
-		public void actionPermormed(ActionEvent ev) {
+		public void actionPerformed(ActionEvent ev) {
 			cardList.clear();
 			clearCard();
 		}
