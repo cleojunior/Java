@@ -1,0 +1,10 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class SimpleChatClient {
+	/* TODO: -> Pag. 384 (Use a Cabeça JAVA.pdf) */
+}
