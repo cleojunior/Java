@@ -30,8 +30,8 @@ public class SimpleChatClient {
 		incoming.setEditable(true);
 		
 		JScrollPane qScroller = new JScrollPane(incoming);
-		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		outgoing = new JTextField(20);
 		
@@ -51,23 +51,44 @@ public class SimpleChatClient {
 		frame.setSize(400, 500);
 		frame.setVisible(true);		
 	}	
-}
 
-private void setUpNetworking() {
-	try {
-		sock = new Socket(LOCAL_HOST, PORT);
-		InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
-		reader = new BufferedReader(streamReader);
-		writer = new PrintWriter(sock.getOutputStream());
-		System.out.println("Networking established");				
-	} catch (Exception ex) {
-		ex.printStackTrace();
+
+	private void setUpNetworking() {
+		try {
+			sock = new Socket(LOCAL_HOST, PORT);
+			InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
+			reader = new BufferedReader(streamReader);
+			writer = new PrintWriter(sock.getOutputStream());
+			System.out.println("Networking established");				
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
-}
-
-public class SendButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent ev) {
-		/* TODO: -> Continuar em pág. 385 Use a Cabeça JAVA.pdf */
-		
-	}	
+	
+	public class SendButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent ev) {
+			try {
+				writer.println(outgoing.getText());
+				writer.flush();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			outgoing.setText("");
+			outgoing.requestFocus();
+		}	
+	}
+	
+	public class IncomingReader implements Runnable {
+		public void run() {
+			String message;
+			try {
+				while ((message = reader.readLine()) != null) {
+					System.out.println("read " + message);
+					incoming.append(message + "\n");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 }
